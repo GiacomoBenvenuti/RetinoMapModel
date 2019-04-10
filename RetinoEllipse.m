@@ -63,26 +63,27 @@ classdef RetinoEllipse < handle ;
             y = obj.By*atan(obj.rho.*sin(thetaR)./(obj.rho.*abs(cos(thetaR))+obj.A));
             obj.y = y.*-1;
             obj.x = x.*hemi; 
+            
             %obj.x = (obj.x -min(obj.x(:)))./max(obj.x(:) -min(obj.x(:)));
             %obj.y = (obj.y -min(obj.y(:)))./max(obj.y(:) -min(obj.y(:)));
         end
         
         function obj = disp(obj)
             % Disp
-            col = parula(size(obj.U,2));
-            for i = 1:size(obj.U,2)
-                hold on
-                subplot(1,2,1)
-                plot(obj.U(:,i),obj.V(:,i),'Color',col(i,:)); axis square; box off
-                hold on; scatter(0,0,60,'+')
-                title('Visual Space (dva)'); ylim([-10 10]); xlim([-10 10])
-                
-                subplot(1,2,2)
-                plot(obj.x(:,i),obj.y(:,i),'Color',col(i,:)); axis square; box off
-                title('Retinotopic Space (mm)')
-            end
-            
-            set(gcf,'color','w')
+%             col = parula(size(obj.U,2));
+%             for i = 1:size(obj.U,2)
+%                 hold on
+%                 subplot(1,2,1)
+%                 plot(obj.U(:,i),obj.V(:,i),'Color',col(i,:)); axis square; box off
+%                 hold on; scatter(0,0,60,'+')
+%                 title('Visual Space (dva)'); ylim([-10 10]); xlim([-10 10])
+%                 
+%                 subplot(1,2,2)
+%                 plot(obj.x(:,i),obj.y(:,i),'Color',col(i,:)); axis square; box off
+%                 title('Retinotopic Space (mm)')
+%             end
+%             
+%             set(gcf,'color','w')
         end
     end
     
