@@ -11,8 +11,8 @@ classdef RetinoEllipse < handle ;
   
         rho = []; %  polar coordinates in visual space in deg
         theta = []; % polar coordinates in visual space in deg
-        x = []; % Cortical coordinates 
-        y = [];
+        x = [1:5]; % Cortical coordinates 
+        y = [1:5];
         U0 =1 ; % Translation along x axis
         V0 = 1; % Translation along y axis
         Angle = 0 ; % Rotation angle
@@ -23,6 +23,13 @@ classdef RetinoEllipse < handle ;
             %RetinoEllipse (u,v,A,Bx,By)
            % [U,V] = meshgrid(obj.u,obj.v);
             %obj.U = U; obj.V = V;
+            if nargin > 0 
+                obj.u = varargin{1};
+                obj.v = varargin{2};
+                 obj.x = varargin{1};
+                obj.y = varargin{2};
+            end
+            
             obj.cartesianVisual_to_cortical;
         end
         
@@ -37,6 +44,7 @@ classdef RetinoEllipse < handle ;
             % biologically plausible model of the superior colliculus
             %[U,V] = meshgrid(obj.u,obj.v);
             %obj.U = U; obj.V = V;
+            
             obj.cartesian_to_polar % calculate rho and theta
             obj.polarVisual_to_cortical %
         end
@@ -60,7 +68,7 @@ classdef RetinoEllipse < handle ;
             hemi( mod(obj.theta,360)>90 & mod(obj.theta,360)<270 ) = -1 ;
             
             thetaR = obj.theta.*pi./180;
-            x = obj.Bx*log(sqrt(obj.rho.*obj.rho+2.*obj.A.*obj.rho.*abs(cos(thetaR))+obj.A.*obj.A)/obj.A);
+            x =  obj.Bx*log(sqrt(obj.rho.*obj.rho+2.*obj.A.*obj.rho.*abs(cos(thetaR))+obj.A.*obj.A)/obj.A);
             y = - obj.By*atan(obj.rho.*sin(thetaR)./(obj.rho.*abs(cos(thetaR))+obj.A));
             x = x.*hemi; 
             
@@ -80,21 +88,34 @@ classdef RetinoEllipse < handle ;
      
         
         function obj = disp(obj)
-            % Disp
-%             col = parula(size(obj.U,2));
-%             for i = 1:size(obj.U,2)
-%                 hold on
-%                 subplot(1,2,1)
-%                 plot(obj.U(:,i),obj.V(:,i),'Color',col(i,:)); axis square; box off
-%                 hold on; scatter(0,0,60,'+')
-%                 title('Visual Space (dva)'); ylim([-10 10]); xlim([-10 10])
-%                 
-%                 subplot(1,2,2)
-%                 plot(obj.x(:,i),obj.y(:,i),'Color',col(i,:)); axis square; box off
-%                 title('Retinotopic Space (mm)')
-%             end
-%             
-%             set(gcf,'color','w')
+            U = obj.u;
+            V =obj.v;
+            col = parula(size(obj.u,2));
+            for i = 1:size(U,2)
+         
+                subplot(2,2,1)
+                plot(U(:,i),V(:,i),'Color',col(i,:)); axis square; box off
+                hold on; scatter(0,0,60,'+')
+                title('Visual Space (dva)'); ylim([-10 10]); xlim([-10 10])
+                
+                subplot(2,2,2)
+                hold on
+                plot(obj.x(:,i),obj.y(:,i),'Color',col(i,:)); axis square; box off
+                title('Retinotopic Space (mm)') 
+                
+                
+                subplot(2,2,3)
+                plot(U(i,:),V(i,:),'Color',col(i,:)); axis square; box off
+                hold on; scatter(0,0,60,'+')
+                title('Visual Space (dva)'); ylim([-10 10]); xlim([-10 10])
+                
+                subplot(224)
+                hold on
+                plot(obj.x(i,:),obj.y(i,:),'Color',col(i,:)); axis square; box off
+                title('Retinotopic Space (mm)')
+            end
+            
+            set(gcf,'color','w')
         end
     end
     
