@@ -4,15 +4,15 @@ classdef RetinoEllipse < handle ;
     % ------------------------------------------------
     properties
         u = [5 20 30 40]  ;% linspace(0,5,5) % (dva) x in visual space
-        v = linspace(-20,20,4) ; % (dva) y in visual space
+        v = linspace(-20,0,4) ; % (dva) y in visual space
         A  = 3 ; % Scaling factor //Shift in the mapping function in deg
         Bx = 1.4 ;% magnification along x axe in mm/deg
         By = 1.8 ;% magnification along y axe in mm/rad
   
         rho = []; %  polar coordinates in visual space in deg
         theta = []; % polar coordinates in visual space in deg
-        x = [1:5]; % Cortical coordinates 
-        y = [1:5];
+        x = [1:5]; % Cortical coordinates in pixels
+        y = [1:5];  % Cortical coordinates in pixels
         U0 =1 ; % Translation along x axis
         V0 = 1; % Translation along y axis
         Angle = 0 ; % Rotation angle
@@ -23,11 +23,18 @@ classdef RetinoEllipse < handle ;
             %RetinoEllipse (u,v,A,Bx,By)
            % [U,V] = meshgrid(obj.u,obj.v);
             %obj.U = U; obj.V = V;
-            if nargin > 0 
+            if nargin > 0
                 obj.u = varargin{1};
                 obj.v = varargin{2};
-                 obj.x = varargin{1};
+                obj.x = varargin{1};
                 obj.y = varargin{2};
+            end
+            
+            if nargin >2
+              obj.A = varargin{3};  
+               obj.Bx = varargin{4};  
+                obj.By = varargin{5};  
+                
             end
             
             obj.cartesianVisual_to_cortical;
