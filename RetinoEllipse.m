@@ -13,15 +13,16 @@ classdef RetinoEllipse < handle ;
         theta = []; % polar coordinates in visual space in deg
         x = [1:5]; % Cortical coordinates in pixels
         y = [1:5];  % Cortical coordinates in pixels
-        U0 =1 ; % Translation along x axis
-        V0 = 1; % Translation along y axis
+        U0 = 0; % Fovea position on cortex (Translation along x axis)
+        V0 = 0; % Fovea position on cortex (Translation along y axis)
         Angle = 0 ; % Rotation angle
+        flag = 0;
     end
     
     methods
         function obj = RetinoEllipse(varargin)
             %RetinoEllipse (u,v,A,Bx,By)
-           % [U,V] = meshgrid(obj.u,obj.v);
+            % [U,V] = meshgrid(obj.u,obj.v);
             %obj.U = U; obj.V = V;
             if nargin > 0
                 obj.u = varargin{1};
@@ -31,9 +32,9 @@ classdef RetinoEllipse < handle ;
             end
             
             if nargin >2
-              obj.A = varargin{3};  
-               obj.Bx = varargin{4};  
-                obj.By = varargin{5};  
+                obj.A = varargin{3};
+                obj.Bx = varargin{4};
+                obj.By = varargin{5};
                 
             end
             
@@ -95,31 +96,33 @@ classdef RetinoEllipse < handle ;
      
         
         function obj = disp(obj)
+            if obj.flag == 0 
+                obj.flag =1;
+                return
+                
+            end
+             
+                
             U = obj.u;
             V =obj.v;
             col = parula(size(obj.u,2));
             for i = 1:size(U,2)
          
-                subplot(2,2,1)
-                plot(U(:,i),V(:,i),'Color',col(i,:)); axis square; box off
+                subplot(1,2,1)
+                plot(U(:,i),V(:,i),'.','Color',col(i,:)); axis square; box off
                 hold on; scatter(0,0,60,'+')
+                xlabel('dva'); ylabel('dva')
                 title('Visual Space (dva)'); ylim([-10 10]); xlim([-10 10])
                 
-                subplot(2,2,2)
+                subplot(1,2,2)
                 hold on
-                plot(obj.x(:,i),obj.y(:,i),'Color',col(i,:)); axis square; box off
+                plot(obj.x(:,i),obj.y(:,i),'.','Color',col(i,:)); axis square; box off
+                xlabel('pixels'); ylabel('pixels')
                 title('Retinotopic Space (mm)') 
+                yl = ylim;
+                line([0 0], yl,'Color','k','LineWidth',2)
                 
-                
-                subplot(2,2,3)
-                plot(U(i,:),V(i,:),'Color',col(i,:)); axis square; box off
-                hold on; scatter(0,0,60,'+')
-                title('Visual Space (dva)'); ylim([-10 10]); xlim([-10 10])
-                
-                subplot(224)
-                hold on
-                plot(obj.x(i,:),obj.y(i,:),'Color',col(i,:)); axis square; box off
-                title('Retinotopic Space (mm)')
+      
             end
             
             set(gcf,'color','w')
