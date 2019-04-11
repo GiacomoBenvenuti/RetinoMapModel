@@ -4,24 +4,25 @@ classdef RetinoEllipse < handle ;
     % ------------------------------------------------
     properties
         u = [5 20 30 40]  ;% linspace(0,5,5) % (dva) x in visual space
-        v = linspace(-20,20,5) ; % (dva) y in visual space
+        v = linspace(-20,20,4) ; % (dva) y in visual space
         A  = 3 ; % Scaling factor //Shift in the mapping function in deg
         Bx = 1.4 ;% magnification along x axe in mm/deg
         By = 1.8 ;% magnification along y axe in mm/rad
-        
+  
         rho = []; %  polar coordinates in visual space in deg
         theta = []; % polar coordinates in visual space in deg
-        U = [] ; % Grid visual space
-        V = []; % Grid visual space
-        x = []; 
+        x = []; % Cortical coordinates 
         y = [];
+        U0 =1 ; % Translation along x axis
+        V0 = 1; % Translation along y axis
+        Angle = 0 ; % Rotation angle
     end
     
     methods
         function obj = RetinoEllipse(varargin)
             %RetinoEllipse (u,v,A,Bx,By)
-            [U,V] = meshgrid(obj.u,obj.v);
-            obj.U = U; obj.V = V;
+           % [U,V] = meshgrid(obj.u,obj.v);
+            %obj.U = U; obj.V = V;
             obj.cartesianVisual_to_cortical;
         end
         
@@ -34,15 +35,15 @@ classdef RetinoEllipse < handle ;
             % xlims,ylims : cortical space extremities
             % P.S. the default values are those used for
             % biologically plausible model of the superior colliculus
-            [U,V] = meshgrid(obj.u,obj.v);
-            obj.U = U; obj.V = V;
+            %[U,V] = meshgrid(obj.u,obj.v);
+            %obj.U = U; obj.V = V;
             obj.cartesian_to_polar % calculate rho and theta
             obj.polarVisual_to_cortical %
         end
         
         function obj= cartesian_to_polar(obj)
-            obj.rho = sqrt(obj.U.^2+obj.V.^2);
-            obj.theta = atan2(obj.V,obj.U).*180./pi;
+            obj.rho = sqrt(obj.u.^2+obj.v.^2);
+            obj.theta = atan2(obj.v,obj.u).*180./pi;
         end
         
         function obj = polarVisual_to_cortical(obj)
@@ -60,13 +61,23 @@ classdef RetinoEllipse < handle ;
             
             thetaR = obj.theta.*pi./180;
             x = obj.Bx*log(sqrt(obj.rho.*obj.rho+2.*obj.A.*obj.rho.*abs(cos(thetaR))+obj.A.*obj.A)/obj.A);
-            y = obj.By*atan(obj.rho.*sin(thetaR)./(obj.rho.*abs(cos(thetaR))+obj.A));
-            obj.y = y.*-1;
-            obj.x = x.*hemi; 
+            y = - obj.By*atan(obj.rho.*sin(thetaR)./(obj.rho.*abs(cos(thetaR))+obj.A));
+            x = x.*hemi; 
+            
+            % Translation
+            x = x+obj.U0;
+            y = y+obj.V0;
+            
+            % Rotation
+            Angle = obj.Angle*pi/180; 
+            obj.x = cos(Angle).*x - sin(Angle).*y ; 
+            obj.y = sin(Angle).*x + cos(Angle).*y ; 
             
             %obj.x = (obj.x -min(obj.x(:)))./max(obj.x(:) -min(obj.x(:)));
             %obj.y = (obj.y -min(obj.y(:)))./max(obj.y(:) -min(obj.y(:)));
         end
+        
+     
         
         function obj = disp(obj)
             % Disp
