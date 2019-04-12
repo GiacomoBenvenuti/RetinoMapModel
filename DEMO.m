@@ -31,32 +31,33 @@ load ./testdata/testdata.mat
 %% Display real data
 
 figure
+
 subplot(221)
-imagesc(RX); axis square
-set(gca,'YDir','normal'); colorbar
-xlabel('pixels'); ylabel('pixels')
-title('X visual coordinates (cartesian)')
-
-subplot(222)
-imagesc(RY); axis square
-set(gca,'YDir','normal'); colorbar
-xlabel('pixels'); ylabel('pixels')
-title('Y visual coordinates (cartesian)')
-
-subplot(223)
 scatter(RX(:),RY(:),60,RX(:)); axis square
 xlabel('(dva)')
 xlim([-5 5 ]); ylim([-5 5 ]); grid
 hold on; scatter(0,0,60,'k+')
 title('Visual space')
 
-subplot(224)
+subplot(222)
+imagesc(RX); axis square
+set(gca,'YDir','normal'); colorbar
+xlabel('pixels'); ylabel('pixels')
+title('X visual coordinates')
+
+subplot(223)
 scatter(RX(:),RY(:),60,RY(:)); axis square
 xlim([-5 5 ]); ylim([-5 5 ]); grid
 hold on; scatter(0,0,60,'k+')
 xlabel('(dva)')
 title('Visual space')
 set(gcf,'color','w')
+
+subplot(224)
+imagesc(RY); axis square
+set(gca,'YDir','normal'); colorbar
+xlabel('pixels'); ylabel('pixels')
+title('Y visual coordinates')
 
 %saveas(gcf,'./figures/RealRetino','png')
 
@@ -101,7 +102,7 @@ subplot(221)
 scatter(x,y,60,RXs,'filled'); colorbar; grid
 xlim([xx])
 ylim([xx])
-xlabel('mm'); ylabel('mm')
+xlabel('pixels'); ylabel('pixels')
 title('Fit')
 
 subplot(222)
