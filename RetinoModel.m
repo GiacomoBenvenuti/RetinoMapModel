@@ -1,23 +1,35 @@
 function [x y] = RetinoModel(varargin)
+% [x y] = RetinoModel(u,v,param)
 % param = [ A, Bx, By, Angle, U0, V0 ]
-% Polar to logpolar coordinates.
-% rho,theta : polar coordinates in visual space in deg
-% A :Shift in the SC mapping function in deg
-% Bx:Collicular magnification along x axe in mm/deg
-% By:Collicular magnification along y axe in mm/rad
+% 
+% This function converts visual coordinates (u,v) to retinotopic 
+% coordinates (x,y) based on a model with parameters param
+% 
+% u : 3D matrix of X visual coordinates in cortical space (x,y,X)
+% v : 3D matrix of Y visual coordinates in cortical space (x,y,Y)
+% A : Shift in the mapping function in deg
+% Bx: magnification along x axes
+% By: magnification along y axes
+%
+% x : X cortical position
+% y : Y cortical position
+%
+%-------------------------------------------
+% by Giacomo Benvenuti & Wahiba Taouali
+% <giacomox@gmail.com>
+% Repository
+% https://github.com/giacomox/RetinoMapModel
+%-------------------------------------------
 
 u = varargin{1} ;
 v = varargin{2} ;
 param = varargin{3} ;
-if nargin >3
-    disp_flag = 1;
-else
-    disp_flag = 0;
-end
 
-[rho theta] = cartesian_to_polar(u,v); % calculate rho and theta
+[rho theta] = cartesian_to_polar(u,v); 
 [x,y] = polarVisual_to_cortical(rho,theta,param);
-if   disp_flag
+
+% Display
+if  nargin >3
     disp(u,v,x,y)
 end
 end
@@ -56,67 +68,41 @@ y1 = sin(Angle).*x + cos(Angle).*y ;
 end
 
 
-
 function disp(u,v,x,y)
-
-if size(u,2) == 1
-    n = size(u,1);
-    d = 1;
-else
-    n = size(u,2);
-    d =2;
-end
-
-col = parula(n);
+n = size(u,2);
+col = jet(n);
 for i = 1:n
+    subplot(221)
+    %  plot(u(:,i),v(:,i),'.','Color',col(i,:));
+    plot(u(i,:),v(i,:),'-','Color',col(i,:));
     
-    subplot(2,2,1)
-    hold on
-    if d ==1
-        plot(u(i),v(i),'.','Color',col(i,:));
-    else
-        plot(u(:,i),v(:,i),'.','Color',col(i,:));
-        %  plot(u(i,:),v(i,:),'.','Color',col(i,:));
-    end
     
     if i == 1
         axis square; box off
         hold on; scatter(0,0,60,'+')
         xlabel('dva'); ylabel('dva')
-        title('Visual Space (dva)'); ylim([-10 10]); xlim([-10 10])
+        title('Visual Space'); ylim([-10 10]); xlim([-10 10])
     end
     
-    subplot(1,2,2)
+    subplot(222)
     hold on
-    if d == 1
-        plot(x(i),y(i),'.','Color',col(i,:));
-    else
-        plot(x(:,i),y(:,i),'.','Color',col(i,:));
-        %plot(x(i,:),y(i,:),'.','Color',col(i,:));
-    end
+    in1 = find(x(i,:)<0);
+    in2 = find(x(i,:)>0);
+    plot(x(i,in1),y(i,in1),'-','Color',col(i,:)); hold on
+    plot(x(i,in2),y(i,in2),'-','Color',col(i,:));
+    
     
     if i ==1
         axis square; box off
         xlabel('pixels'); ylabel('pixels')
-        title('Retinotopic Space (mm)')
-        yl = ylim;
+        title('Retinotopic Space')
+       ylim([min(y(:))-1,max(y(:))+1])
+        line([0 0], [min(y(:)),max(y(:))],'Color','k','LineWidth',2)
     end
     
     
-end
-line([0 0], yl,'Color','k','LineWidth',2)
-set(gcf,'color','w')
-end
-
-
-function disp2(u,v,x,y)
-n = size(u,2);
-
-col = parula(n);
-for i = 1:n
-    
     subplot(223)
-    plot(u(:,i),v(:,i),'.','Color',col(i,:));
+    plot(u(:,i),v(:,i),'-','Color',col(i,:));
     %  plot(u(i,:),v(i,:),'.','Color',col(i,:));
     
     
@@ -124,50 +110,29 @@ for i = 1:n
         axis square; box off
         hold on; scatter(0,0,60,'+')
         xlabel('dva'); ylabel('dva')
-        title('Visual Space (dva)'); ylim([-10 10]); xlim([-10 10])
+        title('Visual Space'); ylim([-10 10]); xlim([-10 10])
     end
     
     subplot(224)
     hold on
-    plot(x(:,i),y(:,i),'.','Color',col(i,:));
+    plot(x(:,i),y(:,i),'-','Color',col(i,:));
     %plot(x(i,:),y(i,:),'.','Color',col(i,:));
     
     
     if i ==1
         axis square; box off
         xlabel('pixels'); ylabel('pixels')
-        title('Retinotopic Space (mm)')
-        yl = ylim;
+        title('Retinotopic Space')
+        ylim([min(y(:))-1,max(y(:))+1])
+        line([0 0], [min(y(:)),max(y(:))],'Color','k','LineWidth',2)
     end
     
     
-    subplot(221)
-    %  plot(u(:,i),v(:,i),'.','Color',col(i,:));
-    plot(u(i,:),v(i,:),'.','Color',col(i,:));
     
-    
-    if i == 1
-        axis square; box off
-        hold on; scatter(0,0,60,'+')
-        xlabel('dva'); ylabel('dva')
-        title('Visual Space (dva)'); ylim([-10 10]); xlim([-10 10])
-    end
-    
-    subplot(222)
-    hold on
-    plot(x(i,:),y(i,:),'.','Color',col(i,:));
-    
-    
-    if i ==1
-        axis square; box off
-        xlabel('pixels'); ylabel('pixels')
-        title('Retinotopic Space (mm)')
-        yl = ylim;
-    end
     
     
 end
-line([0 0], yl,'Color','k','LineWidth',2)
+
 set(gcf,'color','w')
 end
 
