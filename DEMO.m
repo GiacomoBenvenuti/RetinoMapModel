@@ -3,31 +3,44 @@
 %--------------------------
 
 %% Test model using a grid
-[U V] = meshgrid(linspace(-4,4,10),linspace(-2,2,10));
-%M = RetinoEllipse(U,V); 
-%figure; M.disp
-param = [3 2 2 0 0 0];
+[U V] = meshgrid(linspace(-4,0,10),linspace(-2,0,10));
+
+param1 = [3 1.8 1.2 0 0 0];
+
+figure
 [x y] = RetinoModel(U,V,param,1)
 %% Load measured retinotopic coordinates
 % set RetinoEllipse as Current Folder
 load ./testdata/testdata.mat
-RX = RetinotopyCartesianXValid;
-RY= RetinotopyCartesianYValid;
+RX = RetinotopyCartesianYValid; % corresponds to fix the "Y" coordinate
+RY= RetinotopyCartesianXValid;
 
 %% Display retinotopic coordinates
 
 figure
-subplot(121)
+subplot(221)
 imagesc(RX); axis square
 set(gca,'YDir','normal'); colorbar
 xlabel('pixels'); ylabel('pixels')
 title('X visual coordinates (cartesian)')
 
-subplot(122)
+subplot(222)
 imagesc(RY); axis square
 set(gca,'YDir','normal'); colorbar
 xlabel('pixels'); ylabel('pixels')
 title('Y visual coordinates (cartesian)')
+
+
+subplot(223)
+scatter(RX(:),RY(:),60,RX(:)); axis square
+xlabel('(dva)')
+xlim([-5 5 ]); ylim([-5 5 ])
+title('Visual space')
+
+subplot(224)
+scatter(RX(:),RY(:),60,RY(:)); axis square
+xlim([-5 5 ]); ylim([-5 5 ])
+
 set(gcf,'color','w')
 
 %saveas(gcf,'./figures/RealRetino','png')
@@ -39,16 +52,26 @@ set(gcf,'color','w')
 %addpath ../bads
 tic
 param= FitRetino(RX,RY)
+
 toc
 save('./testdata/param','param')
 %%
-[h w] = size(RX) ;
+%param = [3 1.4 1.3 40 1.7 -0.2]
+% param(1) = 10
+%  param(2) =  1000
+%  param(3) = 1000 ;
+%   param(4) =50
+% param(5) = 500
+%  param(6) = -200
+% [h w] = size(RX) ;
+figure
+N =20
 
 % Take a sample of equally spaced pixels values
-q = round(linspace(1,h,100));
-k =round(linspace(1,w,100));
+q = round(linspace(1,h,N));
+k =round(linspace(1,w,N));
 
-[X,Y] = meshgrid(round(linspace(1,h,100)),round(linspace(1,w,100)));
+[X,Y] = meshgrid(round(linspace(1,h,N)),round(linspace(1,w,N)));
 RXs = RX(q,k);
 RYs = RY(q,k);
 X = X(~isnan(RXs)) ;
@@ -56,32 +79,35 @@ Y = Y(~isnan(RYs) );
 RXs = RXs(~isnan(RXs)) ;
 RYs = RYs(~isnan(RYs) );
 
+
 [x y] = RetinoModel(RXs,RYs,param);
 
 %
-figure
+ xx = [0  500]
+dd = 1;
+clf
 subplot(221)
 scatter(x,y,60,RXs,'filled'); colorbar; grid
-xlim([0 500])
-ylim([0 500])
+ xlim([xx])
+ ylim([xx])
 
 subplot(222)
-scatter(X,Y,60,RXs,'filled'); colorbar; grid
-xlim([0 500])
-ylim([0 500])
+scatter(X.*dd,Y.*dd,60,RXs,'filled'); colorbar; grid
+ xlim([xx])
+ ylim([xx])
 
 
 
 subplot(223)
 scatter(x,y,60,RYs,'filled'); colorbar; grid
-xlim([0 500])
-ylim([0 500])
+ xlim([xx])
+ ylim([xx])
 
 subplot(224)
-scatter(X,Y,60,RYs,'filled'); colorbar; grid
+scatter(X.*dd,Y.*dd,60,RYs,'filled'); colorbar; grid
 %  set(gca,'YDir','normal'); colorbar
-xlim([0 500])
-ylim([0 500])
+ xlim([xx])
+ ylim([xx])
 
 
 %%
