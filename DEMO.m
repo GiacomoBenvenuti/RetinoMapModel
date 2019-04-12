@@ -34,13 +34,16 @@ title('Y visual coordinates (cartesian)')
 subplot(223)
 scatter(RX(:),RY(:),60,RX(:)); axis square
 xlabel('(dva)')
-xlim([-5 5 ]); ylim([-5 5 ])
+xlim([-5 5 ]); ylim([-5 5 ]); grid
+hold on; scatter(0,0,60,'k+')
 title('Visual space')
 
 subplot(224)
 scatter(RX(:),RY(:),60,RY(:)); axis square
-xlim([-5 5 ]); ylim([-5 5 ])
-
+xlim([-5 5 ]); ylim([-5 5 ]); grid
+hold on; scatter(0,0,60,'k+')
+xlabel('(dva)')
+title('Visual space')
 set(gcf,'color','w')
 
 %saveas(gcf,'./figures/RealRetino','png')
@@ -65,7 +68,7 @@ save('./testdata/param','param')
 %  param(6) = -200
 % [h w] = size(RX) ;
 figure
-N =20
+N =30
 
 % Take a sample of equally spaced pixels values
 q = round(linspace(1,h,N));
@@ -90,12 +93,14 @@ subplot(221)
 scatter(x,y,60,RXs,'filled'); colorbar; grid
  xlim([xx])
  ylim([xx])
+ xlabel('mm'); ylabel('mm')
+ title('Fit')
 
 subplot(222)
 scatter(X.*dd,Y.*dd,60,RXs,'filled'); colorbar; grid
  xlim([xx])
  ylim([xx])
-
+ title('Real')
 
 
 subplot(223)
