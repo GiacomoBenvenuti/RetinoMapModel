@@ -13,10 +13,10 @@
 %% Test the model using a grid
 
 % Generate a grid in the visual space
-[U V] = meshgrid(linspace(-10,10,20),linspace(-10,10,20));
+[U V] = meshgrid(linspace(-10,10,16),linspace(-10,10,16));
 
 % Generate a set of parameters for the model
-A = 1; Bx = 1.8; By=2; Angle = 0; U0 = 0; V0 = 0;
+A = 1; Bx = 3; By=2; Angle = 0; U0 = 0; V0 = 0;
 test_param = [A Bx By Angle U0 V0];
 
 % Run the model and display results

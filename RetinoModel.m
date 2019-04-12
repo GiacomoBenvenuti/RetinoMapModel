@@ -73,8 +73,7 @@ n = size(u,2);
 col = jet(n);
 for i = 1:n
     subplot(221)
-    %  plot(u(:,i),v(:,i),'.','Color',col(i,:));
-    plot(u(i,:),v(i,:),'-','Color',col(i,:));
+    plot(u(i,:),v(i,:),'-','Color',col(i,:),'LineWidth',2);
     
     
     if i == 1
@@ -88,8 +87,8 @@ for i = 1:n
     hold on
     in1 = find(x(i,:)<0);
     in2 = find(x(i,:)>0);
-    plot(x(i,in1),y(i,in1),'-','Color',col(i,:)); hold on
-    plot(x(i,in2),y(i,in2),'-','Color',col(i,:));
+    plot(x(i,in1),y(i,in1),'-','Color',col(i,:),'LineWidth',2); hold on
+    plot(x(i,in2),y(i,in2),'-','Color',col(i,:),'LineWidth',2);
     
     
     if i ==1
@@ -102,9 +101,7 @@ for i = 1:n
     
     
     subplot(223)
-    plot(u(:,i),v(:,i),'-','Color',col(i,:));
-    %  plot(u(i,:),v(i,:),'.','Color',col(i,:));
-    
+    plot(u(:,i),v(:,i),'-','Color',col(i,:),'LineWidth',2);
     
     if i == 1
         axis square; box off
@@ -115,8 +112,8 @@ for i = 1:n
     
     subplot(224)
     hold on
-    plot(x(:,i),y(:,i),'-','Color',col(i,:));
-    %plot(x(i,:),y(i,:),'.','Color',col(i,:));
+    plot(x(:,i),y(:,i),'-','Color',col(i,:),'LineWidth',2);
+    
     
     
     if i ==1
