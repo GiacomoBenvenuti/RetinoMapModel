@@ -1,4 +1,5 @@
-# RetinoMapModel
+### :octopus: [giacomox - Home](https://giacomox.github.io/#/RetinoProj/README) :octopus:
+# Retinotopic Map Model
 
 This repository contains a Matlab function to generate a retinotopic model (**RetinoModel.m**),
 and a function to fit the model to a real retinotopic map (**FitRetino.m**).
