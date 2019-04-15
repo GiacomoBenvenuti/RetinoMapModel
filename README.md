@@ -13,7 +13,7 @@ colors in the right panels. The red cross in the 1st and 3rd panels corresponds 
 one on the right. For both hemispheres the fovea is at X = 0 and Y = 0.
 
 <p align="center">
-<img src="./figures/DemoGrid.png" width="60%">
+<img src="./figures/DemoGrid.png" width="90%">
 </p>
 
 
