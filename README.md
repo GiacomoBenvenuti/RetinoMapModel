@@ -11,13 +11,24 @@ Here you can see a preview of the figures that you will be able to generate with
 * First, the projection of a simple grid in the visual space to the retinotopic map. The colors of the lines in the left panels correspond to the
 colors in the right panels. The red cross in the 1st and 3rd panels corresponds to the fixation point. Please notice that the right hemisphere is represented on the left of the black line (2nd and 4th panels) and the left
 one on the right. For both hemispheres the fovea is at X = 0 and Y = 0.
-![DemoGrid](./figures/DemoGrid.png)
+
+<p align="center">
+<img src="./figures/DemoGrid.png" width="60%">
+</p>
+
 
 * Second, a visualization of the "real" retinotopic data that we are going to use to fit the model.
-![RealRetino](./figures/RealRetino.png)
+
+<p align="center">
+<img src="./figures/RealRetino.png" width="60%">
+</p>
 
 * Third, the results of the fit of this data with the model
-![RealRetino](./figures/FitRetino.png)
+
+<p align="center">
+<img src="./figures/FitRetino.png" width="60%">
+</p>
+
 
 * Now that we have "calibrated" the model by estimating the good set of parameters to reproduce the data, we can generate any stimulus we like over the two hemispheres.
 If you want to see how to project visual stimuli to the retinotopic map check this other repository.
