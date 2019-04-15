@@ -4,7 +4,8 @@ function [x y] = RetinoModel(varargin)
 % 
 % This function converts visual coordinates (u,v) to retinotopic 
 % coordinates (x,y) based on a model with parameters param
-% 
+% (All coordinates are cartesian)
+%
 % u : 3D matrix of X visual coordinates in cortical space (x,y,X)
 % v : 3D matrix of Y visual coordinates in cortical space (x,y,Y)
 % A : Shift in the mapping function in deg

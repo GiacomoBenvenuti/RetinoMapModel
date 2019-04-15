@@ -122,4 +122,63 @@ scatter(X.*dd,Y.*dd,60,RYs,'filled'); colorbar; grid
 xlim([xx])
 ylim([xx])
 
+%% Inverse function: a work around
+% The model allows to convert any position in the visual space (u,v)
+% to the correspondet position in the cortical space (x,y). 
+% However, we want also to be able to convert any position 
+% in the cortical space to a position in the visual space. 
+% Since we cannot analytically formulate the inverse function of our model,
+% we have to use a work around. This approach consists 
+% in converting a large grid in the visual space to the 
+% cortical space and interpolating. 
 
+[Xq, Yq ]= meshgrid( 1:size(RX,1) , 1:size(RX,2) );
+[U V] = RetinoModel_INV(Xq,Yq,param)
+
+
+
+%%
+
+% Generate grid in visual space
+[U, V] = meshgrid( -5:.1:2 ,  -8:.1:3 );
+% Estimate correspondent cortical location
+[x2 y2] = RetinoModel(U,V,param);
+
+figure; scatter(x2(:),y2(:),10,U(:))
+% Rectangle correspoding to the area we want to estimate
+rectangle('Position',[1 1 504 504])
+
+
+%%
+% Show interpolation resambles real data
+figure; 
+subplot(221)
+scatter(X(1:gg:end),Y(1:gg:end),60,RXs(1:gg:end),'filled','MarkerEdgeColor',cc); colorbar; 
+set(gca,'YDir','normal')
+axis square off
+xlim([0 504]); ylim([0 504])
+title('Measured')
+
+subplot(223)
+scatter(X(1:gg:end),Y(1:gg:end),60,RYs(1:gg:end),'filled','MarkerEdgeColor',cc); colorbar; 
+set(gca,'YDir','normal')
+axis square off
+xlim([0 504]); ylim([0 504])
+
+subplot(222)
+imagesc(Uq)
+hold on 
+% downsample real data to be able to see them
+gg = 1
+cc = 'none'
+scatter(X(1:gg:end),Y(1:gg:end),60,RXs(1:gg:end),'filled','MarkerEdgeColor',cc); colorbar; 
+set(gca,'YDir','normal')
+axis square off
+title('+ Model interpolation')
+
+subplot(224)
+imagesc(Vq)
+set(gca,'YDir','normal')
+hold on 
+scatter(X(1:gg:end),Y(1:gg:end),60,RYs(1:gg:end),'filled','MarkerEdgeColor',cc); colorbar; 
+axis square off

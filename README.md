@@ -31,8 +31,12 @@ one on the right. For both hemispheres the fovea is at X = 0 and Y = 0.
 </p>
 
 
-* Now that we have "calibrated" the model by estimating the good set of parameters to reproduce the data, we can generate any stimulus we like over the two hemispheres.
+* Now that we have "calibrated" the model by estimating the good set of parameters to reproduce the data, we can simulate the retinotopic response to any visual stimulus over the two hemispheres.
 If you want to see how to project visual stimuli to the retinotopic map check this other repository.
 
+* Model "Inversion"
+<p align="center">
+<img src="./figures/Interp2.png" width="60%">
+</p>
 ## More about the model
 This model takes cartesian visual coordinates as an input and returns cartesian retinotopic coordinates as an output.
