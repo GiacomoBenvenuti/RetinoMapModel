@@ -133,7 +133,7 @@ ylim([xx])
 % cortical space and interpolating. 
 
 [Xq, Yq ]= meshgrid( 1:size(RX,1) , 1:size(RX,2) );
-[U V] = RetinoModel_INV(Xq,Yq,param)
+[Uq Vq] = RetinoModel_INV(Xq,Yq,param)
 
 
 

@@ -38,9 +38,8 @@ param = [A Bx By Angle U0 V0];
 
 ```Matlab
 param = FitRetino(RX,RY)
+[x y] = RetinoModel(RX,RY,param)
 ```
-
-
 
 <p align="center">
 <img src="./figures/FitRetino.png" width="60%">
@@ -60,5 +59,6 @@ If you want to see how to project visual stimuli to the retinotopic map check th
 <p align="center">
 <img src="./figures/Interp2.png" width="60%">
 </p>
+
 ## More about the model
 This model takes cartesian visual coordinates as an input and returns cartesian retinotopic coordinates as an output.
