@@ -16,9 +16,9 @@ one on the right. For both hemispheres the fovea is at X = 0 and Y = 0.
 
 
 ```Matlab
+[u v] = meshgrid(linspace(-10,10,16),linspace(-10,10,16));
 param = [A Bx By Angle U0 V0];
-
-[x y] = RetinoModel(U,V,param)
+[x y] = RetinoModel(u,v,param)
 ```
 
 
@@ -37,7 +37,7 @@ param = [A Bx By Angle U0 V0];
 * Third, the results of the fit of this data with the model
 
 ```Matlab
-param= FitRetino(RX,RY)
+param = FitRetino(RX,RY)
 ```
 
 
@@ -52,10 +52,9 @@ If you want to see how to project visual stimuli to the retinotopic map check th
 
 ## Model "Inversion"
 
-$(u,v) = f_{inv}(x,y)$
 
 ```Matlab
-[x y] = RetinoModel(U,V,test_param)
+[x y] = RetinoModel_INV(u,v,param)
 ```
 
 <p align="center">
