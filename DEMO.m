@@ -80,7 +80,7 @@ N =504;
 
 % Take a sample of equally spaced pixels values
 q = round(linspace(1,h,N));
-k =round(linspace(1,w,N));
+k = round(linspace(1,w,N));
 
 [X,Y] = meshgrid(round(linspace(1,h,N)),round(linspace(1,w,N)));
 RXs = RX;%(q,k);

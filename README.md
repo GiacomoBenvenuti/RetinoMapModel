@@ -13,6 +13,15 @@ Here you can see a preview of the figures that you will be able to generate with
 colors in the right panels. The red cross in the 1st and 3rd panels corresponds to the fixation point. Please notice that the right hemisphere is represented on the left of the black line (2nd and 4th panels) and the left
 one on the right. For both hemispheres the fovea is at X = 0 and Y = 0.
 
+
+
+```Matlab
+param = [A Bx By Angle U0 V0];
+
+[x y] = RetinoModel(U,V,param)
+```
+
+
 <p align="center">
 <img src="./figures/DemoGrid.png" width="90%">
 </p>
@@ -24,7 +33,14 @@ one on the right. For both hemispheres the fovea is at X = 0 and Y = 0.
 <img src="./figures/RealRetino.png" width="60%">
 </p>
 
+## Model fit with real retinotopy
 * Third, the results of the fit of this data with the model
+
+```Matlab
+param= FitRetino(RX,RY)
+```
+
+
 
 <p align="center">
 <img src="./figures/FitRetino.png" width="60%">
@@ -34,7 +50,14 @@ one on the right. For both hemispheres the fovea is at X = 0 and Y = 0.
 * Now that we have "calibrated" the model by estimating the good set of parameters to reproduce the data, we can simulate the retinotopic response to any visual stimulus over the two hemispheres.
 If you want to see how to project visual stimuli to the retinotopic map check this other repository.
 
-* Model "Inversion"
+## Model "Inversion"
+
+$(u,v) = f_{inv}(x,y)$
+
+```Matlab
+[x y] = RetinoModel(U,V,test_param)
+```
+
 <p align="center">
 <img src="./figures/Interp2.png" width="60%">
 </p>
