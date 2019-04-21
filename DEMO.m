@@ -26,14 +26,14 @@ figure
 %% Load cortical image with retinotopic coordinates
 % Load the "real data" provided in the folder
 
-load ./testdata/testdata.mat
+%load ./testdata/testdata.mat
 
 %% Display real data
 
 figure
-
+[X,Y] = meshgrid(1:size(RX,1),1:size(RX,2));
 subplot(221)
-scatter(RX(:),RY(:),60,RX(:)); axis square
+scatter(RX(:),RY(:),60,X(:)); axis square
 xlabel('(dva)')
 xlim([-5 5 ]); ylim([-5 5 ]); grid
 hold on; scatter(0,0,60,'k+')
@@ -41,12 +41,13 @@ title('Visual space')
 
 subplot(222)
 imagesc(RX); axis square
-set(gca,'YDir','normal'); colorbar
+%set(gca,'YDir','normal'); 
+colorbar
 xlabel('pixels'); ylabel('pixels')
 title('X visual coordinates')
 
 subplot(223)
-scatter(RX(:),RY(:),60,RY(:)); axis square
+scatter(RX(:),RY(:),60,Y(:)); axis square
 xlim([-5 5 ]); ylim([-5 5 ]); grid
 hold on; scatter(0,0,60,'k+')
 xlabel('(dva)')
@@ -55,7 +56,8 @@ set(gcf,'color','w')
 
 subplot(224)
 imagesc(RY); axis square
-set(gca,'YDir','normal'); colorbar
+%set(gca,'YDir','normal'); 
+colorbar
 xlabel('pixels'); ylabel('pixels')
 title('Y visual coordinates')
 
@@ -67,15 +69,22 @@ title('Y visual coordinates')
 % you can donwload bads here https://github.com/lacerbi/bads
 %addpath ../bads
 tic
-param= FitRetino(RX,RY)
+RX1 = flipud(RX);
+RY1 = flipud(RY);
+param= FitRetino(RX1,RY1)
 
 toc
-save('./testdata/param','param')
+%save('./testdata/param','param')
 
 %% Disaply fitted model
+param(1) =50
+param(2) = 5000
+param(3) = 3000
+param(4) = 70
+param(6) = -400
 
 [h w] = size(RX) ;
-figure
+
 N =504;
 
 % Take a sample of equally spaced pixels values
@@ -93,7 +102,11 @@ RXs =  RXs(~isnan(RXs)) ;
 RYs = RYs(~isnan(RYs) );
 
 %[x y] = RetinoModel(RXs,RYs,param);
-[x y] = RetinoModel(RXs,RYs,param);
+[x y] = RetinoModel((RXs),(RYs),param);
+%x =flipud(x);
+%y = flipud(y);
+
+
 %
 xx = [0  500]
 dd = 1;
@@ -104,24 +117,27 @@ xlim([xx])
 ylim([xx])
 xlabel('pixels'); ylabel('pixels')
 title('Fit')
+set(gca,'YDir','normal'); 
+
 
 subplot(222)
 scatter(X.*dd,Y.*dd,60,RXs,'filled'); colorbar; grid
 xlim([xx])
 ylim([xx])
 title('Real')
-
+set(gca,'YDir','reverse'); 
 
 subplot(223)
 scatter(x,y,60,RYs,'filled'); colorbar; grid
 xlim([xx])
 ylim([xx])
+set(gca,'YDir','normal'); 
 
 subplot(224)
 scatter(X.*dd,Y.*dd,60,RYs,'filled'); colorbar; grid
 xlim([xx])
 ylim([xx])
-
+set(gca,'YDir','reverse'); 
 %% Inverse function: a work around
 % The model allows to convert any position in the visual space (u,v)
 % to the correspondet position in the cortical space (x,y). 

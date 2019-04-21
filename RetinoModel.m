@@ -55,6 +55,7 @@ hemi( mod(theta,360)>90 & mod(theta,360)<270 ) = -1 ;
 thetaR = theta.*pi./180;
 x =  Bx*log(sqrt(rho.*rho+2.*A.*rho.*abs(cos(thetaR))+A.*A)/A);
 y =  -By*atan(rho.*sin(thetaR)./(rho.*abs(cos(thetaR))+A));
+
 x = x.*hemi;
 
 % Translation

@@ -1,5 +1,5 @@
 function [Uq Vq] = RetinoModel_INV(varargin)
-% [u v] = RetinoModel(X,Y,param)
+% [u v] = RetinoModel_INV(X,Y,param)
 % param = [ A, Bx, By, Angle, U0, V0 ]
 % 
 % This function converts cortical coordinates (X,Y) to visual 
