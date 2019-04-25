@@ -69,7 +69,10 @@ To build the retinotopic map, a coordinate system is often defined in the visual
 Here we considered a simple model, where each cortical visual position (x,y in a cartesian space) is supposed to be connected to a single position in the visual field, with respect to a logpolar deformation, that form its receptive field assuming that the non uniformity is caused by the changing size of the receptive fields. 
 
 We used equations mapping retinotopic polar coordinates (ρ (deg),φ(rad)) onto V1 Cartesian coordinates (x (mm),y(mm)). These equations were first introduced by [Ottes et al., 1986]:
-- $$x = B_x log\left(\frac{\sqrt{\rho^{2}+2A\rho|\cos{(\phi)}|+A^{2}}}{A}\right)$$
-- $$y = B_y~arctan\left(\frac{\rho \sin{(\phi)}}{\rho|\cos{(\phi)}|+A}\right)$$
+
+
+<p align="center">
+<img src="Screen Shot 2019-04-24 at 8.07.33 PM.png" width="60%">
+</p>
 
 It means that a cell at a given position (x,y) in the V1 map is activated by retinal cells in positions (ρ, φ) according to the given equations. One result of this deformation is that the same stimulus causes a large activation in the V1 map if it is located near the fovea and smaller activation in peripheral positions
