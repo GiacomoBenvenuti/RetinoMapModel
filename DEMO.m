@@ -50,7 +50,8 @@ title('Visual space')
 
 subplot(222)
 scatter(X(:),Y(:),60,RX(:)); axis square
-colorbar
+h=colorbar
+ylabel(h,'degrees of visual angle')
 xlabel('pixels'); ylabel('pixels')
 title('X cortical space')
 
@@ -112,7 +113,9 @@ RYs = RYs(~isnan(RYs) );
 
 figure
 subplot(221)
-scatter(x,y,60,RXs,'filled'); colorbar; grid
+scatter(x,y,60,RXs,'filled'); grid
+h=colorbar
+ylabel(h,'degrees of visual angle')
 xlim([xx])
 ylim([xx])
 xlabel('pixels'); ylabel('pixels')
@@ -135,6 +138,7 @@ scatter(X,Y,60,RYs,'filled'); colorbar; grid
 xlim([xx])
 ylim([xx])
 set(gcf,'color','w')
+
 %% Inverse function: a work around
 % The model allows to convert any position in the visual space (u,v)
 % to the correspondet position in the cortical space (x,y). 
@@ -173,6 +177,8 @@ set(gca,'YDir','normal')
 axis square off
 xlim([0 504]); ylim([0 504])
 title('Measured')
+h=colorbar
+ylabel(h,'degrees of visual angle')
 
 subplot(223)
 scatter(X(1:gg:end),Y(1:gg:end),60,RYs(1:gg:end),'filled','MarkerEdgeColor',cc); colorbar; 
@@ -197,3 +203,5 @@ set(gca,'YDir','normal')
 hold on 
 scatter(X(1:gg:end),Y(1:gg:end),60,RYs(1:gg:end),'filled','MarkerEdgeColor',cc); colorbar; 
 axis square off
+set(gcf,'color','w')
+save('./testdata/Estimated_Retinotopy','param','RX','RY', 'Uq', 'Vq')
