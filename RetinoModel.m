@@ -29,6 +29,10 @@ param = varargin{3} ;
 [rho theta] = cartesian_to_polar(u,v); 
 [x,y] = polarVisual_to_cortical(rho,theta,param);
 
+% Scaling - Find a better way?
+x = x/param(2);
+y = y/param(2);
+
 % Display
 if  nargin >3
     disp(u,v,x,y)
@@ -43,18 +47,21 @@ end
 
 function [x1 y1] = polarVisual_to_cortical(rho,theta,param)
 A = param(1);
-Bx = param(2);
-By = param(3);
-Angle = param(4);
-U0 = param(5);
-V0 = param(6);
+Bx = param(3);
+By = param(4);
+Angle = param(5);
+U0 = param(6);
+V0 = param(7);
 
 hemi = ones(size(theta));
 hemi( mod(theta,360)>90 & mod(theta,360)<270 ) = -1 ;
 
 thetaR = theta.*pi./180;
 x =  Bx*log(sqrt(rho.*rho+2.*A.*rho.*abs(cos(thetaR))+A.*A)/A);
+
 y =  -By*atan(rho.*sin(thetaR)./(rho.*abs(cos(thetaR))+A));
+%y =  By*atan(rho.*sin(thetaR)./(rho.*abs(cos(thetaR))+A)); % Compansate for data inversion
+
 
 x = x.*hemi;
 
