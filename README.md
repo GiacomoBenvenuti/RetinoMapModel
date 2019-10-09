@@ -17,7 +17,7 @@ one on the right. For both hemispheres the fovea is at X = 0 and Y = 0.
 
 ```Matlab
 [u v] = meshgrid(linspace(-10,10,16),linspace(-10,10,16));
-param = [A Bx By Angle U0 V0];
+param = [A Scale Bx By Angle U0 V0];
 [x y] = RetinoModel(u,v,param)
 ```
 
@@ -62,11 +62,11 @@ If you want to see how to project visual stimuli to the retinotopic map check th
 
 ## More about the model
 
-As explained in [Taouali et al., 2012](https://link.springer.com/chapter/10.1007/978-3-642-27534-0_21) and [Taouali et al., 2015](https://github.com/taoualiw/Superior-Colliculus), this model defines a retinotopic map that corresponds to the projection of the visual field coordinates into the cortical (or collicular coordinates) accounting for **cortical magnification**(i.e., the foveal region benefits from a much higher resolution than peripheral regions and this property is preserved along the visual pathway up to early visual areas [Purves, 2004]). 
+As explained in [Taouali et al., 2012](https://link.springer.com/chapter/10.1007/978-3-642-27534-0_21) and [Taouali et al., 2015](https://github.com/taoualiw/Superior-Colliculus), this model defines a retinotopic map that corresponds to the projection of the visual field coordinates into the cortical (or collicular coordinates) accounting for **cortical magnification**(i.e., the foveal region benefits from a much higher resolution than peripheral regions and this property is preserved along the visual pathway up to early visual areas [Purves, 2004]).
 
-To build the retinotopic map, a coordinate system is often defined in the visual field (commonly polar coordinates (ρ,φ) which characterizes a position in the visual field by its eccentricity ρ from the center of gaze and its polar angle φ with respect to the lower vertical meridian). Then, a spatial transformation -often approximated by a log-polar function- is applied to the the spherical image centered on the eye [Robinson, 1972]. 
+To build the retinotopic map, a coordinate system is often defined in the visual field (commonly polar coordinates (ρ,φ) which characterizes a position in the visual field by its eccentricity ρ from the center of gaze and its polar angle φ with respect to the lower vertical meridian). Then, a spatial transformation -often approximated by a log-polar function- is applied to the the spherical image centered on the eye [Robinson, 1972].
 
-Here we considered a simple model, where each cortical visual position (x,y in a cartesian space) is supposed to be connected to a single position in the visual field, with respect to a logpolar deformation, that form its receptive field assuming that the non uniformity is caused by the changing size of the receptive fields. 
+Here we considered a simple model, where each cortical visual position (x,y in a cartesian space) is supposed to be connected to a single position in the visual field, with respect to a logpolar deformation, that form its receptive field assuming that the non uniformity is caused by the changing size of the receptive fields.
 
 We used equations mapping retinotopic polar coordinates (ρ (deg),φ(rad)) onto V1 Cartesian coordinates (x (mm),y(mm)). These equations were first introduced by [Ottes et al., 1986]:
 
