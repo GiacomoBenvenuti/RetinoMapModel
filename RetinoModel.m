@@ -22,8 +22,8 @@ function [x y] = RetinoModel(varargin)
 % https://github.com/giacomox/RetinoMapModel
 %-------------------------------------------
 
-u = varargin{1} ;
-v = varargin{2} ;
+u = varargin{2} ;
+v = varargin{1} ;
 param = varargin{3} ;
 
 [rho theta] = cartesian_to_polar(u,v); 

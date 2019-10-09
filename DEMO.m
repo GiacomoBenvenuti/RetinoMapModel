@@ -31,10 +31,10 @@ figure
 % Load the "real data" provided in the folder
 
 load ./testdata/testdata.mat % M15D20140912R0
-RX1 = RX;
-RY1 = RY;
-RX = RY1;
-RY = RX1;
+% RX1 = RX;
+% RY1 = RY;
+% RX = RY1;
+% RY = RX1;
 
 %% Display real data
 
