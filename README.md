@@ -1,8 +1,8 @@
-### :octopus: [giacomox - Home](https://giacomox.github.io/#/RetinoProj/README) :octopus:
 # Retinotopic Map Model
+by Giacomo Benvenuti
 
 This repository contains a Matlab function to generate a retinotopic model (**RetinoModel.m**),
-and a function to fit the model to a real retinotopic map (**FitRetino.m**).
+and a function to fit the model to a real [retinotopic map](http://www.scholarpedia.org/article/Visual_map) (**FitRetino.m**).
 To see how these two functions work, I provided a Demo script (DEMO.m) and some "real" test data (**/testdata**).
 
 In order to run the fit, you need to add to the Matlab path a library called "bads" (Bayesian minimization algorithm).
