@@ -1,7 +1,13 @@
-# Retinotopic Map Model
+# Simulate neural responses in the visual cortex at the retinotopic scale
 by Giacomo Benvenuti
 
-In primates, the primary visual cortex is organized as an homomorphic map of the visual space (i.e. retinal surface), called [retinotopic map](http://www.scholarpedia.org/article/Visual_map). 
+In primates like us, the primary visual cortex is organized as an homomorphic map of the visual space (i.e. retinal surface), called [retinotopic map](http://www.scholarpedia.org/article/Visual_map). 
+
+<p align="center">
+<img src="./figures/retinoWoman.png" width="50%">
+</p>
+
+>Figure 1. Projection of the visual space to the primary visual cortex (Striate cortex). Section of a human brain with eyes looking at a woman (notice the coordinates of the visual space). On the occipital lobe you can see the projection of the visual space to the retinotopic map in the striate cortex (i.e., representing the neural activity). We want to map the coordinates of the visual space to the coordinates of the cortical space.  
 
 We can estimate this map by recoding neural responses in the cortex while presenting visual stimuli at different locations of the visual space and labeling each cortical location based on the position of the visual stimulus that activated it. However, these recordings are generally noisy and capture only a small part of the retinotopic map. 
 
