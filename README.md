@@ -1,14 +1,19 @@
 # Retinotopic Map Model
 by Giacomo Benvenuti
 
-This repository contains a Matlab function to generate a retinotopic model (**RetinoModel.m**),
-and a function to fit the model to a real [retinotopic map](http://www.scholarpedia.org/article/Visual_map) (**FitRetino.m**).
-To see how these two functions work, I provided a Demo script (DEMO.m) and some "real" test data (**/testdata**).
+In primates, the primary visual cortex is organized as an homomorphic map of the visual space (i.e. retinal surface), called [retinotopic map](http://www.scholarpedia.org/article/Visual_map). 
 
-In order to run the fit, you need to add to the Matlab path a library called "bads" (Bayesian minimization algorithm).
+We can estimate this map by recoding neural responses in the cortex while presenting visual stimuli at different locations of the visual space and labeling each cortical location based on the position of the visual stimulus that activated it. However, these recordings are generally noisy and capture only a small part of the retinotopic map. 
+
+Here, I provide a set of functions to fit (**FitRetino.m**) a retinotopic model (**RetinoModel.m**) to the partial reconstruction of the retinotopic map obtained with optical imaging recordings (VSD or calcium imaging of the neural activity) and a function to invert the model and project visual stimuli to the retinotopic map. (**RetinoModel_INV.m**)
+
+To see how these functions work, I provide a Demo script (DEMO.m) and some retinotopic mapping optical imaging data (**/testdata**).
+
+In order to run the fit, you need to add to the Matlab path a library called "bads" (Bayesian gradient descent algorithm).
 You can download this free library [here](https://github.com/lacerbi/bads).
 
 Here you can see a preview of the figures that you will be able to generate with the demo.
+
 * First, the projection of a simple grid in the visual space to the retinotopic map. The colors of the lines in the left panels correspond to the
 colors in the right panels. The red cross in the 1st and 3rd panels corresponds to the fixation point. Please notice that the right hemisphere is represented on the left of the black line (2nd and 4th panels) and the left
 one on the right. For both hemispheres the fovea is at X = 0 and Y = 0.
